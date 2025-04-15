@@ -7,23 +7,6 @@ import (
 	"os"
 )
 
-// Query represents a service query record.
-type Query struct {
-	ID              int    `json:"id"`
-	Name            string `json:"name"`
-	Email           string `json:"email"`
-	Phone           string `json:"phone"`
-	Message         string `json:"message"`
-	Service         string `json:"service"`
-	NumGuards       int    `json:"numGuards"`
-	DurationType    string `json:"durationType"`
-	DurationValue   int    `json:"durationValue"`
-	CameraRequired  bool   `json:"cameraRequired"`
-	VehicleRequired bool   `json:"vehicleRequired"`
-	SubmittedAt     string `json:"submittedAt"`
-	Status          string `json:"status"`
-}
-
 type UpdateRequest struct {
 	ID     int    `json:"id"`
 	Status string `json:"status"`

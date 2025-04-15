@@ -9,59 +9,65 @@ import (
 )
 
 type Query struct {
-	ID              int    `json:"id"`
-	Name            string `json:"name"`
-	Email           string `json:"email"`
-	Service         string `json:"service"`
-	Guards          int    `json:"guards"`
-	DurationValue   int    `json:"durationValue"`
-	DurationUnit    string `json:"durationUnit"`
-	CameraRequired  bool   `json:"cameraRequired"`
-	VehicleRequired bool   `json:"vehicleRequired"`
-	SpecialRequest  string `json:"specialRequest"`
-	SubmittedAt     string `json:"submitted_at"`
+	ID          int    `json:"id"`
+	Name        string `json:"name"`
+	Email       string `json:"email"`
+	Phone       string `json:"phone"`
+	Service     string `json:"service"`
+	Message     string `json:"message"`
+	SubmittedAt string `json:"submitted_at"`
+	Status      string `json:"status"`
 }
 
-func AddBooking(w http.ResponseWriter, r *http.Request) {
-	if r.Method != http.MethodPost {
-		http.Error(w, "Only POST method allowed", http.StatusMethodNotAllowed)
-		return
-	}
-
+func AddQuery(w http.ResponseWriter, r *http.Request) {
+	// Decode new query from request body
 	var newQuery Query
 	if err := json.NewDecoder(r.Body).Decode(&newQuery); err != nil {
 		http.Error(w, "Invalid input data", http.StatusBadRequest)
 		return
 	}
 
-	// Read existing queries from file
+	// Load existing data
 	path, err := filepath.Abs("database.json")
 	if err != nil {
 		http.Error(w, "Failed to find database file", http.StatusInternalServerError)
 		return
 	}
 
-	var queries []Query
-	if data, err := os.ReadFile(path); err == nil {
-		_ = json.Unmarshal(data, &queries)
+	data, err := os.ReadFile(path)
+	if err != nil {
+		http.Error(w, "Failed to read database", http.StatusInternalServerError)
+		return
 	}
 
-	// Assign ID and timestamp
-	newQuery.ID = len(queries) + 1
+	var existingQueries []Query
+	if err := json.Unmarshal(data, &existingQueries); err != nil {
+		http.Error(w, "Invalid database format", http.StatusInternalServerError)
+		return
+	}
+
+	// Generate new ID
+	newQuery.ID = len(existingQueries) + 1
 	newQuery.SubmittedAt = time.Now().UTC().Format(time.RFC3339)
 
-	// Append the new query and save the updated list
-	queries = append(queries, newQuery)
-	updatedData, err := json.MarshalIndent(queries, "", "  ")
+	// Append new query
+	existingQueries = append(existingQueries, newQuery)
+
+	// Save back to file
+	updatedData, err := json.MarshalIndent(existingQueries, "", "  ")
 	if err != nil {
 		http.Error(w, "Failed to encode updated data", http.StatusInternalServerError)
 		return
 	}
 
-	if err := os.WriteFile("database.json", updatedData, 0644); err != nil {
-		http.Error(w, "Failed to write updated data", http.StatusInternalServerError)
+	err = os.WriteFile(path, updatedData, 0644)
+	if err != nil {
+		http.Error(w, "Failed to save query", http.StatusInternalServerError)
 		return
 	}
 
-	json.NewEncoder(w).Encode(map[string]string{"status": "success"})
+	// Return success
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusCreated)
+	json.NewEncoder(w).Encode(map[string]string{"message": "Query submitted successfully"})
 }

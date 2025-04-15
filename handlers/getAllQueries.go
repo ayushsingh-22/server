@@ -7,7 +7,7 @@ import (
 	"path/filepath"
 )
 
-type Query struct {
+type Query2 struct {
 	// Define fields based on the structure of your JSON data
 	// Example:
 	ID    int    `json:"id"`
@@ -28,7 +28,7 @@ func GetAllQueries(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	var queries []Query
+	var queries []Query2
 	if err := json.Unmarshal(data, &queries); err != nil {
 		http.Error(w, "Invalid JSON format", http.StatusInternalServerError)
 		return
