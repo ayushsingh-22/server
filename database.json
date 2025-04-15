@@ -1,173 +1,72 @@
 [
   {
-    "id": 1,
-    "name": "Rahul Sharma",
-    "email": "rahul@example.com",
-    "phone": "9876543210",
-    "message": "Can I hire 2 guards for a wedding event in Delhi?",
-    "service": "",
-    "submitted_at": "2025-04-15T10:30:00Z"
+    "id": 14,
+    "name": "Ayush Kumar",
+    "email": "ayushkumar2205@gmail.com",
+    "phone": "fyfdf",
+    "service": "Special Event Guards",
+    "message": "Update form",
+    "submitted_at": "2025-04-15T17:51:29Z",
+    "status": ""
   },
   {
     "id": 2,
-    "name": "Neha Verma",
-    "email": "neha.verma@example.com",
-    "phone": "9876501234",
-    "message": "Looking for night security services in Gurgaon for 3 months.",
-    "service": "",
-    "submitted_at": "2025-04-14T18:22:00Z"
+    "name": "Ayush Kumar",
+    "email": "ayushkufffffmar2205@cfdgmail.com",
+    "phone": "fyfdf",
+    "service": "Special Event Guards",
+    "message": "fdfdddf",
+    "submitted_at": "2025-04-15T17:54:54Z",
+    "status": ""
   },
   {
     "id": 3,
-    "name": "Ajay Singh",
-    "email": "ajay.singh@example.com",
-    "phone": "8888888888",
-    "message": "Do you provide armed guards for bank security?",
-    "service": "",
-    "submitted_at": "2025-04-13T14:45:00Z"
+    "name": "wer",
+    "email": "ast@ghmail.com",
+    "phone": "7412589630",
+    "service": "Installing Cameras \u0026 Tech",
+    "message": "need help",
+    "submitted_at": "2025-04-15T17:57:12Z",
+    "status": ""
   },
   {
     "id": 4,
-    "name": "Priya Yadav",
-    "email": "priya.yadav@example.com",
-    "phone": "9090909090",
-    "message": "Need a female security officer for office front desk.",
-    "service": "",
-    "submitted_at": "2025-04-13T12:00:00Z"
+    "name": "wer",
+    "email": "ast@ghmail.com",
+    "phone": "7412589630",
+    "service": "School \u0026 College Guards",
+    "message": "need ",
+    "submitted_at": "2025-04-15T18:00:56Z",
+    "status": "In Progress"
   },
   {
     "id": 5,
-    "name": "Anil Mehta",
-    "email": "anil.mehta@example.com",
-    "phone": "9234567890",
-    "message": "What are the charges for 24x7 apartment security?",
-    "service": "",
-    "submitted_at": "2025-04-12T08:30:00Z"
+    "name": "wer",
+    "email": "ast@ghmail.com",
+    "phone": "7412589630",
+    "service": "Transport Security",
+    "message": "need help",
+    "submitted_at": "2025-04-15T18:15:42Z",
+    "status": ""
   },
   {
     "id": 6,
-    "name": "Simran Kaur",
-    "email": "simran.kaur@example.com",
-    "phone": "8123456789",
-    "message": "I need security guards for a school in Noida.",
-    "service": "",
-    "submitted_at": "2025-04-11T17:15:00Z"
+    "name": "wer",
+    "email": "ast@ghmail.com",
+    "phone": "7412589630",
+    "service": "Special Event Guards",
+    "message": "need help",
+    "submitted_at": "2025-04-15T18:18:32Z",
+    "status": ""
   },
   {
     "id": 7,
-    "name": "Rohit Chauhan",
-    "email": "rohit.c@example.com",
-    "phone": "9999900000",
-    "message": "Can I get one guard for my warehouse for night shifts?",
-    "service": "",
-    "submitted_at": "2025-04-11T10:45:00Z"
-  },
-  {
-    "id": 8,
-    "name": "Pooja Mishra",
-    "email": "pooja.mishra@example.com",
-    "phone": "9812345678",
-    "message": "Interested in corporate security solutions. Please contact.",
-    "service": "",
-    "submitted_at": "2025-04-10T09:00:00Z"
-  },
-  {
-    "id": 9,
-    "name": "Manoj Kumar",
-    "email": "manoj.kumar@example.com",
-    "phone": "9001234567",
-    "message": "What is the process to hire a guard for society?",
-    "service": "",
-    "submitted_at": "2025-04-09T16:20:00Z"
-  },
-  {
-    "id": 10,
-    "name": "Divya Joshi",
-    "email": "divya.joshi@example.com",
-    "phone": "9811112233",
-    "message": "Looking for event security guards for a conference in May.",
-    "service": "",
-    "submitted_at": "2025-04-08T11:55:00Z"
-  },
-  {
-    "id": 11,
-    "name": "Ayush Singh",
-    "email": "ayush@example.com",
-    "phone": "9876543210",
-    "message": "Need 2 guards for next week event.",
-    "service": "",
-    "submitted_at": "2025-04-14T19:40:09Z"
-  },
-  {
-    "id": 12,
-    "name": "Raja Babu",
-    "email": "rajababu@mail.com",
-    "phone": "9876543210",
-    "message": "I need transport ki service",
-    "service": "Transport Security",
-    "submitted_at": "2025-04-14T19:49:08Z"
-  },
-  {
-    "id": 13,
-    "name": "Raja Babu",
-    "email": "rbabu@babu.com",
-    "phone": "09350258260",
-    "message": "I need raja babu type doctors",
-    "service": "Corporate Guards",
-    "submitted_at": "2025-04-14T19:50:42Z"
-  },
-  {
-    "id": 14,
-    "name": "Raja Babu",
-    "email": "rbabu@babu.com",
-    "phone": "09350258260",
-    "message": "I need raja babu type doctors",
-    "service": "Corporate Guards",
-    "submitted_at": "2025-04-14T19:50:53Z"
-  },
-  {
-    "id": 15,
-    "name": "Abhinav Kumar Twest",
-    "email": "aktest@gmail.com",
-    "phone": "987\\654310",
-    "message": "I need test",
-    "service": "Transport Security",
-    "submitted_at": "2025-04-14T19:54:51Z"
-  },
-  {
-    "id": 16,
-    "name": "anny",
-    "email": "aktessst@gmail.com",
-    "phone": "985454310",
-    "message": "I need help",
-    "service": "Transport Security",
-    "submitted_at": "2025-04-14T19:56:10Z"
-  },
-  {
-    "id": 17,
-    "name": "asd",
-    "email": "asd@gmail.com",
-    "phone": "1234567890",
-    "message": "I need help",
-    "service": "Club Guards",
-    "submitted_at": "2025-04-14T20:12:30Z"
-  },
-  {
-    "id": 18,
-    "name": "Elim",
-    "email": "nun@gmail.com",
-    "phone": "123456543",
-    "message": "I need you.",
-    "service": "Special Event Guards",
-    "submitted_at": "2025-04-14T20:14:59Z"
-  },
-  {
-    "id": 19,
-    "name": "aa",
-    "email": "aa@gmail.com",
-    "phone": "123454333",
-    "message": "Test test",
-    "service": "Transport Security",
-    "submitted_at": "2025-04-14T20:23:17Z"
+    "name": "wer",
+    "email": "ast@ghmail.com",
+    "phone": "7412589630",
+    "service": "Hotel \u0026 Resort Guards",
+    "message": "need help",
+    "submitted_at": "2025-04-15T18:20:48Z",
+    "status": ""
   }
 ]
