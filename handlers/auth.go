@@ -36,17 +36,3 @@ func LoginHandler(w http.ResponseWriter, r *http.Request) {
 
 	http.Error(w, "Invalid credentials", http.StatusUnauthorized)
 }
-
-func LogoutHandler(w http.ResponseWriter, r *http.Request) {
-	// To logout, clear the cookie by setting MaxAge to -1.
-	cookie := &http.Cookie{
-		Name:   "session",
-		Value:  "",
-		Path:   "/",
-		MaxAge: -1,
-	}
-	http.SetCookie(w, cookie)
-	json.NewEncoder(w).Encode(map[string]string{
-		"message": "Logout successful",
-	})
-}

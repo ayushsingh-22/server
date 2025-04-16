@@ -22,6 +22,7 @@ func main() {
 	mux.HandleFunc("/api/updateStatus", handlers.UpdateQueryStatus)
 	mux.HandleFunc("/api/logout", handlers.LogoutHandler)
 	mux.HandleFunc("/api/check-login", handlers.CheckLoginStatus) // ✅ Check login handler
+	mux.HandleFunc("/api/analytics", handlers.AnalyticsHandler)
 
 	// ✅ CORS setup for cookie-based auth from localhost:3000
 	c := cors.New(cors.Options{
