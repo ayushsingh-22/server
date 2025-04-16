@@ -6,22 +6,15 @@ import (
 	"os"
 	"path/filepath"
 	"time"
-)
 
-type Query struct {
-	ID          int    `json:"id"`
-	Name        string `json:"name"`
-	Email       string `json:"email"`
-	Phone       string `json:"phone"`
-	Service     string `json:"service"`
-	Message     string `json:"message"`
-	SubmittedAt string `json:"submitted_at"`
-	Status      string `json:"status"`
-}
+	"server/models"
 
+	)
+
+	
 func AddQuery(w http.ResponseWriter, r *http.Request) {
 	// Decode new query from request body
-	var newQuery Query
+	var newQuery models.Query
 	if err := json.NewDecoder(r.Body).Decode(&newQuery); err != nil {
 		http.Error(w, "Invalid input data", http.StatusBadRequest)
 		return
@@ -40,13 +33,13 @@ func AddQuery(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	var existingQueries []Query
+	var existingQueries []models.Query
 	if err := json.Unmarshal(data, &existingQueries); err != nil {
 		http.Error(w, "Invalid database format", http.StatusInternalServerError)
 		return
 	}
 
-	// Generate new ID
+	// Generate new ID and set the submitted time.
 	newQuery.ID = len(existingQueries) + 1
 	newQuery.SubmittedAt = time.Now().UTC().Format(time.RFC3339)
 

@@ -5,6 +5,7 @@ import (
 	"io/ioutil"
 	"net/http"
 	"os"
+	"server/models"
 )
 
 type UpdateRequest struct {
@@ -35,7 +36,7 @@ func UpdateQueryStatus(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	var queries []Query
+	var queries []models.Query
 	if err := json.Unmarshal(data, &queries); err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		json.NewEncoder(w).Encode(map[string]string{"error": "Failed to parse database"})

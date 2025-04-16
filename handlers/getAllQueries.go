@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
+	"sort"
 
 	"server/models" // Import the models package, which contains the Query struct defined in admin.go
 )
@@ -35,7 +36,17 @@ func GetAllQueries(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Set header and response status, then encode and send the queries as JSON.
+	// Sort the queries by ID in ascending order.
+	sort.Slice(queries, func(i, j int) bool {
+		return queries[i].ID < queries[j].ID
+	})
+
+	// Reassign query IDs sequentially starting from 1.
+	for i := range queries {
+		queries[i].ID = i + 1
+	}
+
+	// Set header and response status, then encode and send the sorted queries as JSON.
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
 	json.NewEncoder(w).Encode(queries)
