@@ -20,7 +20,6 @@ func main() {
 	mux.HandleFunc("/api/getAllQueries", handlers.GetAllQueries)
 	mux.HandleFunc("/api/add-query", handlers.AddQuery)
 	mux.HandleFunc("/api/updateStatus", handlers.UpdateQueryStatus)
-	mux.HandleFunc("/api/logout", handlers.LogoutHandler)
 	mux.HandleFunc("/api/check-login", handlers.CheckLoginStatus) // ✅ Check login handler
 	mux.HandleFunc("/api/analytics", handlers.AnalyticsHandler)
 
