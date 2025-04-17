@@ -3,6 +3,7 @@ package main
 import (
 	"log"
 	"net/http"
+	"os"
 
 	"server/handlers" // ensure this import path matches your folder structure
 
@@ -10,6 +11,11 @@ import (
 )
 
 func main() {
+	// Set up required environment variables for Gemini API
+	if os.Getenv("GEMINI_API_KEY") == "" {
+		log.Println("Warning: GEMINI_API_KEY environment variable not set. Chatbot functionality will not work properly.")
+	}
+
 	mux := http.NewServeMux()
 
 	// Routes
@@ -20,8 +26,11 @@ func main() {
 	mux.HandleFunc("/api/getAllQueries", handlers.GetAllQueries)
 	mux.HandleFunc("/api/add-query", handlers.AddQuery)
 	mux.HandleFunc("/api/updateStatus", handlers.UpdateQueryStatus)
-	mux.HandleFunc("/api/check-login", handlers.CheckLoginStatus) // ✅ Check login handler
+	mux.HandleFunc("/api/check-login", handlers.CheckLoginStatus)
 	mux.HandleFunc("/api/analytics", handlers.AnalyticsHandler)
+	
+	// Add the new chat endpoint for Gemini integration
+	mux.HandleFunc("/api/chat", handlers.ChatHandler)
 
 	// ✅ CORS setup for cookie-based auth from localhost:3000
 	c := cors.New(cors.Options{
