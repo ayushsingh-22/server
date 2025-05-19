@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"encoding/json"
+	"math"
 	"net/http"
 	"os"
 	"path/filepath"
@@ -110,7 +111,7 @@ func AnalyticsHandler(w http.ResponseWriter, r *http.Request) {
 			prev := monthlyList[i-1].Revenue
 			curr := monthlyList[i].Revenue
 			growth := ((curr - prev) / prev) * 100
-			monthlyList[i].Growth = growth
+			monthlyList[i].Growth = math.Round(growth*100) / 100
 		} else {
 			monthlyList[i].Growth = 0
 		}

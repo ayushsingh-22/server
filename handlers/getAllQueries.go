@@ -36,14 +36,14 @@ func GetAllQueries(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	log.Printf("Found %d queries before sorting", len(queries))
+	// log.Printf("Found %d queries before sorting", len(queries))
 
 	// Debug: Log the IDs before sorting
 	var idsBeforeSorting []int
 	for _, q := range queries {
 		idsBeforeSorting = append(idsBeforeSorting, q.ID)
 	}
-	log.Printf("IDs before sorting: %v", idsBeforeSorting)
+	// log.Printf("IDs before sorting: %v", idsBeforeSorting)
 
 	// Sort the queries by ID in DESCENDING order
 	sort.SliceStable(queries, func(i, j int) bool {
@@ -55,7 +55,7 @@ func GetAllQueries(w http.ResponseWriter, r *http.Request) {
 	for _, q := range queries {
 		idsAfterSorting = append(idsAfterSorting, q.ID)
 	}
-	log.Printf("IDs after sorting: %v", idsAfterSorting)
+	// log.Printf("IDs after sorting: %v", idsAfterSorting)
 
 	// Don't reassign IDs - keep original descending order
 

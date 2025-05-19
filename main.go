@@ -26,14 +26,13 @@ func main() {
 	mux.HandleFunc("/api/getAllQueries", handlers.GetAllQueries)
 	mux.HandleFunc("/api/add-query", handlers.AddQuery)
 	mux.HandleFunc("/api/updateStatus", handlers.UpdateQueryStatus)
-	mux.HandleFunc("/api/check-login", handlers.CheckLoginStatus) // ✅ Check login handler
+	mux.HandleFunc("/api/check-login", handlers.CheckLoginStatus) 
 	mux.HandleFunc("/api/analytics", handlers.AnalyticsHandler)
 	mux.HandleFunc("/api/chat", handlers.ChatHandler)
-
-	// ✅ CORS setup for cookie-based auth from localhost:3000
+	
 	c := cors.New(cors.Options{
-		AllowedOrigins:   []string{"http://localhost:3000"}, // ✅ exact frontend origin
-		AllowCredentials: true,                              // ✅ allow cookies
+		AllowedOrigins:   []string{"http://localhost:3000"}, 
+		AllowCredentials: true,                              
 		AllowedMethods:   []string{"GET", "POST", "OPTIONS"},
 		AllowedHeaders:   []string{"Content-Type"},
 	})
