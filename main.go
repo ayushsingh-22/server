@@ -31,7 +31,11 @@ func main() {
 	mux.HandleFunc("/api/chat", handlers.ChatHandler)
 
 	c := cors.New(cors.Options{
-		AllowedOrigins:   []string{"https://server-saby.onrender.com"},
+		AllowedOrigins: []string{
+			"https://rakshak-service-9liu98iow-ayushsingh-22s-projects.vercel.app",
+			"http://localhost:8080", // Allow local frontend
+			"http://localhost:3000", // (optional) Allow React dev server
+		},
 		AllowCredentials: true,
 		AllowedMethods:   []string{"GET", "POST", "OPTIONS"},
 		AllowedHeaders:   []string{"Content-Type"},
