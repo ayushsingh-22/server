@@ -678,5 +678,25 @@
     "fireSafety": true,
     "status": "Pending",
     "cost": 6785
+  },
+  {
+    "id": 35,
+    "name": "tws",
+    "email": "tws@gmail.com",
+    "phone": "111111",
+    "service": "Bodyguard Services",
+    "message": "tws tws",
+    "submitted_at": "2025-06-23T22:24:38Z",
+    "numGuards": "2",
+    "durationType": "hours",
+    "durationValue": "55",
+    "cameraRequired": false,
+    "vehicleRequired": false,
+    "firstAid": false,
+    "walkieTalkie": false,
+    "bulletProof": false,
+    "fireSafety": true,
+    "status": "Pending",
+    "cost": 4425
   }
 ]

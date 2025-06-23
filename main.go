@@ -24,7 +24,7 @@ func main() {
 	mux.HandleFunc("/api/login", handlers.LoginHandler)
 	// Protect sensitive routes with JWT middleware
 	mux.Handle("/api/getAllQueries", handlers.JWTAuthMiddleware(http.HandlerFunc(handlers.GetAllQueries)))
-	mux.Handle("/api/add-query", handlers.JWTAuthMiddleware(http.HandlerFunc(handlers.AddQuery)))
+	mux.HandleFunc("/api/add-query", handlers.AddQuery) // <-- Now public, no JWT required!
 	mux.Handle("/api/updateStatus", handlers.JWTAuthMiddleware(http.HandlerFunc(handlers.UpdateQueryStatus)))
 	mux.Handle("/api/analytics", handlers.JWTAuthMiddleware(http.HandlerFunc(handlers.AnalyticsHandler)))
 	mux.HandleFunc("/api/chat", handlers.ChatHandler)
