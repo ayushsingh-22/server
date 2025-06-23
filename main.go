@@ -31,7 +31,9 @@ func main() {
 	mux.HandleFunc("/api/chat", handlers.ChatHandler)
 
 	c := cors.New(cors.Options{
-		AllowedOrigins:   []string{"*"},
+		AllowedOrigins:   []string{"*",
+	"https://rakshak-service-ayushsingh-22s-projects.vercel.app/" ,
+	"https://rakshak-service-git-main-ayushsingh-22s-projects.vercel.app/"},
 		AllowCredentials: true,
 		AllowedMethods:   []string{"GET", "POST", "OPTIONS"},
 		AllowedHeaders:   []string{"Content-Type"},
