@@ -26,19 +26,19 @@ func main() {
 	mux.HandleFunc("/api/getAllQueries", handlers.GetAllQueries)
 	mux.HandleFunc("/api/add-query", handlers.AddQuery)
 	mux.HandleFunc("/api/updateStatus", handlers.UpdateQueryStatus)
-	mux.HandleFunc("/api/check-login", handlers.CheckLoginStatus) 
+	mux.HandleFunc("/api/check-login", handlers.CheckLoginStatus)
 	mux.HandleFunc("/api/analytics", handlers.AnalyticsHandler)
 	mux.HandleFunc("/api/chat", handlers.ChatHandler)
-	
+
 	c := cors.New(cors.Options{
-		AllowedOrigins:   []string{"http://localhost:3000"}, 
-		AllowCredentials: true,                              
+		AllowedOrigins:   []string{"https://server-saby.onrender.com"},
+		AllowCredentials: true,
 		AllowedMethods:   []string{"GET", "POST", "OPTIONS"},
 		AllowedHeaders:   []string{"Content-Type"},
 	})
 
 	// Start server
-	log.Println("Server is running on http://localhost:8080")
+	log.Println("Server is running on onrender")
 	if err := http.ListenAndServe(":8080", c.Handler(mux)); err != nil {
 		log.Fatal(err)
 	}
