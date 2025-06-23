@@ -4,7 +4,12 @@ import (
 	"encoding/json"
 	"net/http"
 	"server/models"
+	"time"
+
+	"github.com/golang-jwt/jwt/v5"
 )
+
+var jwtKey = []byte("your_secret_key") // Use a secure, random key in production
 
 var adminUser = models.Admin{
 	Email:    "qwerty@gmail.com",
@@ -12,7 +17,6 @@ var adminUser = models.Admin{
 }
 
 func LoginHandler(w http.ResponseWriter, r *http.Request) {
-	// Set content type for consistent JSON responses
 	w.Header().Set("Content-Type", "application/json")
 
 	var login models.Admin
@@ -23,21 +27,33 @@ func LoginHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if login.Email == adminUser.Email && login.Password == adminUser.Password {
-		// Set login cookie; you may generate a token for production use.
-		cookie := &http.Cookie{
-			Name:     "session",
-			Value:    "authenticated",
-			Path:     "/",
-			HttpOnly: false, // Set to true in production for security
-			SameSite: http.SameSiteLaxMode,
-			MaxAge:   3600 * 24, // 24 hours
+		// Create JWT token
+		token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
+			"email": login.Email,
+			"exp":   time.Now().Add(24 * time.Hour).Unix(),
+		})
+		tokenString, err := token.SignedString(jwtKey)
+		if err != nil {
+			w.WriteHeader(http.StatusInternalServerError)
+			json.NewEncoder(w).Encode(map[string]string{"error": "Could not generate token"})
+			return
 		}
-		http.SetCookie(w, cookie)
 
+		// Option 1: Send token in response body
 		json.NewEncoder(w).Encode(map[string]string{
 			"message": "Login successful",
-			"status":  "authenticated",
+			"token":   tokenString,
 		})
+
+		// Option 2: (Optional) Set token as HttpOnly cookie
+		// http.SetCookie(w, &http.Cookie{
+		// 	Name:     "token",
+		// 	Value:    tokenString,
+		// 	Path:     "/",
+		// 	HttpOnly: true,
+		// 	SameSite: http.SameSiteLaxMode,
+		// 	Expires:  time.Now().Add(24 * time.Hour),
+		// })
 		return
 	}
 
@@ -45,43 +61,37 @@ func LoginHandler(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(map[string]string{"error": "Invalid credentials"})
 }
 
-func LogoutHandler(w http.ResponseWriter, r *http.Request) {
-	// Set content type
+func CheckLoginHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
-
-	// Clear the session cookie
-	cookie := &http.Cookie{
-		Name:   "session",
-		Value:  "",
-		Path:   "/",
-		MaxAge: -1,
-	}
-	http.SetCookie(w, cookie)
-
-	json.NewEncoder(w).Encode(map[string]string{
-		"message": "Logout successful",
-		"status":  "logged_out",
-	})
+	w.Write([]byte(`{"authenticated": true}`))
 }
 
-func CheckLoginStatus(w http.ResponseWriter, r *http.Request) {
-	// Set content type
-	w.Header().Set("Content-Type", "application/json")
+// Middleware to protect routes
+func JWTAuthMiddleware(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		// Option 1: Get token from Authorization header
+		authHeader := r.Header.Get("Authorization")
+		if authHeader == "" {
+			http.Error(w, "Missing Authorization header", http.StatusUnauthorized)
+			return
+		}
+		tokenString := authHeader[len("Bearer "):]
 
-	// Check for session cookie
-	cookie, err := r.Cookie("session")
+		// Option 2: (If using cookie) Get token from cookie
+		// cookie, err := r.Cookie("token")
+		// if err != nil {
+		// 	http.Error(w, "Missing token cookie", http.StatusUnauthorized)
+		// 	return
+		// }
+		// tokenString := cookie.Value
 
-	if err != nil || cookie.Value != "authenticated" {
-		// No valid session found
-		w.WriteHeader(http.StatusOK) // Still 200 OK
-		json.NewEncoder(w).Encode(map[string]bool{
-			"authenticated": false,
+		token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
+			return jwtKey, nil
 		})
-		return
-	}
-
-	// Valid session found
-	json.NewEncoder(w).Encode(map[string]bool{
-		"authenticated": true,
+		if err != nil || !token.Valid {
+			http.Error(w, "Invalid or expired token", http.StatusUnauthorized)
+			return
+		}
+		next.ServeHTTP(w, r)
 	})
 }

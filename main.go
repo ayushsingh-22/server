@@ -22,13 +22,13 @@ func main() {
 		http.NotFound(w, r)
 	})
 	mux.HandleFunc("/api/login", handlers.LoginHandler)
-	mux.HandleFunc("/api/logout", handlers.LogoutHandler)
-	mux.HandleFunc("/api/getAllQueries", handlers.GetAllQueries)
-	mux.HandleFunc("/api/add-query", handlers.AddQuery)
-	mux.HandleFunc("/api/updateStatus", handlers.UpdateQueryStatus)
-	mux.HandleFunc("/api/check-login", handlers.CheckLoginStatus)
-	mux.HandleFunc("/api/analytics", handlers.AnalyticsHandler)
+	// Protect sensitive routes with JWT middleware
+	mux.Handle("/api/getAllQueries", handlers.JWTAuthMiddleware(http.HandlerFunc(handlers.GetAllQueries)))
+	mux.Handle("/api/add-query", handlers.JWTAuthMiddleware(http.HandlerFunc(handlers.AddQuery)))
+	mux.Handle("/api/updateStatus", handlers.JWTAuthMiddleware(http.HandlerFunc(handlers.UpdateQueryStatus)))
+	mux.Handle("/api/analytics", handlers.JWTAuthMiddleware(http.HandlerFunc(handlers.AnalyticsHandler)))
 	mux.HandleFunc("/api/chat", handlers.ChatHandler)
+	mux.Handle("/api/check-login", handlers.JWTAuthMiddleware(http.HandlerFunc(handlers.CheckLoginHandler)))
 
 	c := cors.New(cors.Options{
 		AllowedOrigins: []string{
@@ -40,7 +40,7 @@ func main() {
 		},
 		AllowCredentials: true,
 		AllowedMethods:   []string{"GET", "POST", "OPTIONS"},
-		AllowedHeaders:   []string{"Content-Type"},
+		AllowedHeaders:   []string{"Content-Type", "Authorization"},
 	})
 
 	// Start server
