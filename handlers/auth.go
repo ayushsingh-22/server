@@ -13,7 +13,7 @@ var jwtKey = []byte("your_secret_key") // Use a secure, random key in production
 
 var adminUser = models.Admin{
 	Email:    "qwerty@gmail.com",
-	Password: "qwety",
+	Password: "qwerty",
 }
 
 func LoginHandler(w http.ResponseWriter, r *http.Request) {
